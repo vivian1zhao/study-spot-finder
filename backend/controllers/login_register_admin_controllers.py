@@ -2,7 +2,7 @@ from functools import wraps
 
 from flask import Blueprint, jsonify, request
 
-import models.users_model as model
+import models.login_register_admin_model as model
 
 users_bp = Blueprint("users", __name__)
 

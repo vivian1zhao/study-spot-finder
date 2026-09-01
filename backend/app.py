@@ -8,5 +8,5 @@ app.register_blueprint(places_reviews_bp, url_prefix="/")
 app.register_blueprint(favs_placedetails_bp, url_prefix="/")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
 

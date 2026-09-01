@@ -1,10 +1,10 @@
-from database import get_connection
+from config.db import get_db
 
 
 # AMENITIES
 
 def get_place_amenities(place_id):
-    connection = get_connection()
+    connection = get_db()
     cursor = connection.cursor(dictionary=True)
 
     query = """
@@ -27,7 +27,7 @@ def get_place_amenities(place_id):
 # OPENING HOURS
 
 def get_place_hours(place_id):
-    connection = get_connection()
+    connection = get_db()
     cursor = connection.cursor(dictionary=True)
 
     query = """
@@ -57,7 +57,7 @@ def get_place_hours(place_id):
 # FAVORITES
 
 def get_user_favorites(user_id):
-    connection = get_connection()
+    connection = get_db()
     cursor = connection.cursor(dictionary=True)
 
     query = """
@@ -78,7 +78,7 @@ def get_user_favorites(user_id):
     return favorites
 
 def favorite_exists(user_id, place_id):
-    connection = get_connection()
+    connection = get_db()
     cursor = connection.cursor(dictionary=True)
 
     query = """
@@ -101,7 +101,7 @@ def add_favorite(user_id, place_id):
     if favorite_exists(user_id, place_id):
         return None
 
-    connection = get_connection()
+    connection = get_db()
     cursor = connection.cursor(dictionary=True)
 
     query = """
@@ -120,7 +120,7 @@ def add_favorite(user_id, place_id):
     return new_id
 
 def remove_favorite(user_id, place_id):
-    connection = get_connection()
+    connection = get_db()
     cursor = connection.cursor(dictionary=True)
 
     query = """
@@ -143,7 +143,7 @@ def remove_favorite(user_id, place_id):
 # PLACE DETAILS
 
 def get_place_by_id(place_id):
-    connection = get_connection()
+    connection = get_db()
     cursor = connection.cursor(dictionary=True)
 
     query = """
@@ -162,7 +162,7 @@ def get_place_by_id(place_id):
     return place
 
 def get_rating_summary(place_id):
-    connection = get_connection()
+    connection = get_db()
     cursor = connection.cursor(dictionary=True)
 
     query = """
@@ -189,7 +189,7 @@ def get_rating_summary(place_id):
     return ratings
 
 def get_place_reviews(place_id):
-    connection = get_connection()
+    connection = get_db()
     cursor = connection.cursor(dictionary=True)
 
     query = """

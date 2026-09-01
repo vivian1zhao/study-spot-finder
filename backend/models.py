@@ -1,8 +1,7 @@
 from database import get_connection
 
-#================
+
 # AMENITIES
-#================
 
 def get_place_amenities(place_id):
     connection = get_connection()
@@ -24,9 +23,8 @@ def get_place_amenities(place_id):
 
     return amenities
 
-#====================
+
 # OPENING HOURS
-#====================
 
 def get_place_hours(place_id):
     connection = get_connection()
@@ -55,9 +53,8 @@ def get_place_hours(place_id):
 
     return hours
 
-#=================
+
 # FAVORITES
-#=================
 
 def get_user_favorites(user_id):
     connection = get_connection()
@@ -142,9 +139,8 @@ def remove_favorite(user_id, place_id):
 
     return rows_deleted
 
-#=====================
+
 # PLACE DETAILS
-#=====================
 
 def get_place_by_id(place_id):
     connection = get_connection()

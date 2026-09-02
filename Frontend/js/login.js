@@ -1,19 +1,3 @@
-const express = require('express');
-const axios = require('axios');
-const session = require('express-session');
-
-const app = express();
-
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.static(__dirname));
-
-app.use(session({
-    secret: 'change-this-to-a-real-secret',
-    resave: false,
-    saveUninitialized: false
-}));
-
 const API_BASE_URL = 'http://localhost:5001';
 
 document.addEventListener('DOMContentLoaded', () => {

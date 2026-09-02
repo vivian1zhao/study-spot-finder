@@ -1,66 +1,47 @@
-const express = require('express');
-const axios = require('axios');
-const session = require('express-session');
-
-const app = express();
-
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.static(__dirname));
-
-app.use(session({
-    secret: 'change-this-to-a-real-secret',
-    resave: false,
-    saveUninitialized: false
-}));
-
-// Backend API URL - Sprint 1 Flask server
 const API_BASE_URL = 'http://localhost:5001';
 
-app.get('/', (req, res) => {
-    res.redirect('/register.html');
-});
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('register-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const messageEl = document.getElementById('form-message');
 
-app.post('/register', async (req, res) => {
-    try {
-        const {
-            fname,
-            lname,
-            password,
-            email,
-            phone,
-            address,
-            city,
-            state,
-            username
-        } = req.body;
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-        const response = await axios.post(`${API_BASE_URL}/register`, {
-            fname,
-            lname,
-            pass_word: password,
-            email,
-            phone,
-            address,
-            city,
-            state,
-            username
-        });
+        const payload = {
+            fname: document.getElementById('fname').value.trim(),
+            lname: document.getElementById('lname').value.trim(),
+            username: document.getElementById('username').value.trim(),
+            pass_word: document.getElementById('password').value,
+            email: document.getElementById('email').value.trim(),
+            phone: document.getElementById('phone').value.trim(),
+            address: document.getElementById('address').value.trim(),
+            city: document.getElementById('city').value.trim(),
+            state: document.getElementById('state').value.trim()
+        };
 
-        if (response.status === 201) {
-            return res.status(201).json(response.data);
+        messageEl.textContent = '';
+        submitBtn.disabled = true;
+
+        try {
+            const res = await fetch(`${API_BASE_URL}/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                window.location.href = 'login.html';
+            } else {
+                messageEl.textContent = data.message || 'Registration failed. Please try again.';
+            }
+        } catch (err) {
+            console.error('Register request failed:', err);
+            messageEl.textContent = 'Unable to reach the server. Please try again.';
+        } finally {
+            submitBtn.disabled = false;
         }
-    } catch (err) {
-        console.error('Register error:', err.message);
-        if (err.response) {
-            console.error('Backend response:', err.response.status, err.response.data);
-            return res.status(err.response.status).json(err.response.data);
-        }
-        res.status(500).json({ message: 'Unable to reach registration service' });
-    }
+    });
 });
-
-module.exports = { app };
-
-const PORT = 3001;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

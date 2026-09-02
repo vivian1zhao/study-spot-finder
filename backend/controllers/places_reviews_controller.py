@@ -30,12 +30,7 @@ def add_review():
 
     model.add_review(data)
     model.update_place_rating(data["place_id"])
-    model.log_action(
-        data["user_id"],
-        "INSERT",
-        "Reviews",
-        f"Review added for place {data['place_id']}"
-    )
+    
 
     return jsonify({"message": "Review added successfully"}), 201
 

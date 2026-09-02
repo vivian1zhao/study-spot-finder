@@ -1,0 +1,243 @@
+body {
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+.floating-blobs {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.floating-blobs::before,
+.floating-blobs::after {
+  content: "";
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  filter: blur(120px);
+  animation: blobMove 18s infinite alternate ease-in-out;
+}
+
+.floating-blobs::before {
+  background: rgba(74, 124, 89, 0.35);
+  top: -200px;
+  left: -150px;
+}
+
+.floating-blobs::after {
+  background: rgba(173, 216, 230, 0.35);
+  bottom: -200px;
+  right: -150px;
+}
+
+@keyframes blobMove {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(80px, -60px) scale(1.15); }
+  100% { transform: translate(-40px, 40px) scale(1); }
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #333;
+  text-decoration: none;
+}
+
+.nav-right a {
+  margin-right: 20px;
+  text-decoration: none;
+  color: #444;
+  font-weight: 500;
+}
+
+#dark-toggle {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #444;
+}
+
+header {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+h1 {
+  font-size: 2.4rem;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.review-section {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.review-card {
+  width: 420px;
+  background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(18px);
+  padding: 28px;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  animation: fadeUp 0.8s ease;
+}
+
+@keyframes fadeUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.input-label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+  color: #4a7c59;
+}
+
+.review-card select {
+  appearance: none;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.25s ease;
+  background-image:
+    linear-gradient(135deg, #f0f7f4, #e8f3ee),
+    url("data:image/svg+xml;utf8,<svg fill='%234a7c59' height='20' width='20' viewBox='0 0 20 20'><path d='M5 7l5 5 5-5'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 20px;
+}
+
+.review-card select:hover {
+  border-color: #4a7c59;
+  box-shadow: 0 0 12px rgba(173, 216, 230, 0.6);
+  transform: scale(1.03);
+  background-color: rgba(230, 245, 255, 0.6);
+}
+
+.review-card select:focus {
+  outline: none;
+  border-color: #4a7c59;
+  box-shadow: 0 0 14px rgba(173, 216, 230, 0.7);
+}
+
+textarea {
+  width: 100%;
+  height: 140px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  resize: none;
+  transition: all 0.25s ease;
+}
+
+textarea:focus {
+  border-color: #4a7c59;
+  box-shadow: 0 0 14px rgba(173, 216, 230, 0.7);
+}
+
+#submit-review {
+  background: #4a7c59;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+#submit-review:hover {
+  background: #3b6248;
+  transform: scale(1.03);
+}
+
+.success-popup {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #4a7c59;
+  color: white;
+  padding: 16px 22px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.success-popup.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#login-prompt .login-required-card {
+  width: 420px;
+  background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(18px);
+  padding: 28px;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  text-align: center;
+  animation: fadeUp 0.8s ease;
+}
+
+#login-prompt h2 {
+  margin-bottom: 14px;
+  font-size: 1.3rem;
+  color: #4a7c59;
+}
+
+#login-prompt .login-btn {
+  display: inline-block;
+  padding: 12px 20px;
+  background: #4a7c59;
+  color: white;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+#login-prompt .login-btn:hover {
+  background: #3b6248;
+  transform: scale(1.03);
+}
+
+.logged-in-label {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #4a7c59;
+}

@@ -4,20 +4,23 @@
   <meta charset="UTF-8">
   <title>Search | StudySpot</title>
   <link rel="stylesheet" href="css/search.css">
+  <link rel="stylesheet" href="css/navbar.css">
 </head>
 
 <body>
   <div class="floating-icons"></div>
 
   <nav class="navbar">
-    <a href="Places.html" class="logo">StudySpot</a>
+    <div class="nav-left">
+      <a href="places.html" class="logo">StudySpot</a>
+    </div>
 
     <div class="nav-right">
       <a href="Places.html">Places</a>
       <a href="Search.html">Search</a>
-      <a href="Favorites.html">Favorites</a>
       <a href="Review.html">Review</a>
       <button id="dark-toggle">🌙</button>
+      <div id="user-initials" class="user-initials" hidden></div>
     </div>
   </nav>
 
@@ -52,5 +55,6 @@
   </section>
 
   <script src="js/search.js"></script>
+  <script src="js/navbar.js"></script>
 </body>
 </html>

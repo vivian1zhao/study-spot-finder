@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudySpot - Profile</title>
+  <link rel="stylesheet" href="css/profile.css">
+  <link rel="stylesheet" href="css/navbar.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="places.html" class="logo">StudySpot</a>
+    </div>
+
+    <div class="nav-right">
+      <a href="Places.html">Places</a>
+      <a href="Search.html">Search</a>
+      <a href="Review.html">Review</a>
+      <button id="dark-toggle">🌙</button>
+      <div id="user-initials" class="user-initials" hidden></div>
+    </div>
+  </nav>
+
+  <header>
+    <div id="profile-avatar" class="profile-avatar"></div>
+    <h1>My Profile</h1>
+    <p class="subtitle">
+      Your saved study spots and reviews.
+    </p>
+  </header>
+
+  <div id="loading" class="loading-spinner"></div>
+
+  <p
+    id="error-message"
+    class="error-message"
+    hidden>
+  </p>
+
+  <main class="profile-container">
+
+    <!-- FAVORITES -->
+    <section class="profile-section">
+
+      <div class="section-heading">
+        <h2>My Favorites</h2>
+
+        <a
+          href="favorites.html"
+          class="view-all-link">
+          View All
+        </a>
+      </div>
+
+      <div
+        id="profile-favorites"
+        class="profile-favorites">
+      </div>
+
+      <p
+        id="no-favorites"
+        class="empty-message"
+        hidden>
+        You have no favorite study spots yet.
+      </p>
+
+    </section>
+
+
+    <!-- REVIEWS -->
+
+    <section class="profile-section">
+
+      <div class="section-heading">
+        <h2>My Reviews</h2>
+      </div>
+
+      <div id="profile-reviews"></div>
+
+      <p
+        id="no-reviews"
+        class="empty-message"
+        hidden>
+        You have not written any reviews yet.
+      </p>
+
+    </section>
+
+    <section class="profile-section logout-section">
+      <button
+        id="logout-btn"
+        type="button"
+        class="profile-action-btn logout-btn">
+        Log Out
+      </button>
+    </section>
+
+  </main>
+
+
+  <!-- EDIT REVIEW POPUP -->
+
+  <div
+    id="edit-modal"
+    class="modal"
+    hidden>
+
+    <div class="modal-content">
+
+      <div class="modal-heading">
+
+        <h2>Edit Review</h2>
+
+        <button
+          id="close-modal"
+          class="close-btn"
+          type="button">
+          ×
+        </button>
+
+      </div>
+
+
+      <h3 id="edit-place-name"></h3>
+
+
+      <form id="edit-review-form">
+
+        <input
+          type="hidden"
+          id="edit-review-id">
+
+
+        <div class="rating-grid">
+
+          <label>
+            Overall Rating
+            <input
+              id="edit-overall"
+              type="number"
+              min="1"
+              max="5"
+              step="0.1"
+              required>
+          </label>
+
+          <label>
+            Noise
+            <input
+              id="edit-noise"
+              type="number"
+              min="1"
+              max="5"
+              step="0.1">
+          </label>
+
+          <label>
+            Seating
+            <input
+              id="edit-seating"
+              type="number"
+              min="1"
+              max="5"
+              step="0.1">
+          </label>
+
+          <label>
+            Outlets
+            <input
+              id="edit-outlets"
+              type="number"
+              min="1"
+              max="5"
+              step="0.1">
+          </label>
+
+          <label>
+            Wi-Fi
+            <input
+              id="edit-wifi"
+              type="number"
+              min="1"
+              max="5"
+              step="0.1">
+          </label>
+
+          <label>
+            Food
+            <input
+              id="edit-food"
+              type="number"
+              min="1"
+              max="5"
+              step="0.1">
+          </label>
+
+          <label>
+            Opening Hours
+            <input
+              id="edit-hours"
+              type="number"
+              min="1"
+              max="5"
+              step="0.1">
+          </label>
+
+          <label>
+            Parking
+            <input
+              id="edit-parking"
+              type="number"
+              min="1"
+              max="5"
+              step="0.1">
+          </label>
+
+        </div>
+
+
+        <label class="comments-label">
+          Comments
+
+          <textarea
+            id="edit-comments"
+            maxlength="250"
+            rows="4">
+          </textarea>
+        </label>
+
+
+        <div class="modal-actions">
+
+          <button
+            type="submit"
+            class="profile-action-btn edit-btn">
+            Save Changes
+          </button>
+
+          <button
+            id="cancel-edit"
+            type="button"
+            class="profile-action-btn cancel-btn">
+            Cancel
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <script src="js/profile.js"></script>
+  <script src="js/navbar.js"></script>
+
+</body>
+</html>

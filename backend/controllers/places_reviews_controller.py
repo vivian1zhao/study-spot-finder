@@ -33,3 +33,47 @@ def add_review():
     
 
     return jsonify({"message": "Review added successfully"}), 201
+
+@places_reviews_bp.get("/users/<int:user_id>/reviews")
+def get_user_reviews(user_id):
+    reviews = model.get_user_reviews(user_id)
+    return jsonify(reviews), 200
+
+@places_reviews_bp.put("/users/<int:user_id>/reviews/<int:review_id>")
+def edit_review(user_id, review_id):
+    data = request.json
+
+    place_id = model.update_review(
+        user_id,
+        review_id,
+        data
+    )
+
+    if place_id is None:
+        return jsonify({
+            "message": "Review not found"
+        }), 404
+
+    model.update_place_rating(place_id)
+
+    return jsonify({
+        "message": "Review updated successfully"
+    }), 200
+
+@places_reviews_bp.delete("/users/<int:user_id>/reviews/<int:review_id>")
+def delete_review(user_id, review_id):
+    place_id = model.delete_review(
+        user_id,
+        review_id
+    )
+
+    if place_id is None:
+        return jsonify({
+            "message": "Review not found"
+        }), 404
+
+    model.update_place_rating(place_id)
+
+    return jsonify({
+        "message": "Review deleted successfully"
+    }), 200

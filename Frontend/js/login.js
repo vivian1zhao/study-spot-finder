@@ -1,66 +1,82 @@
-const express = require('express');
-const axios = require('axios');
-const session = require('express-session');
-
-const app = express();
-
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.static(__dirname));
-
-app.use(session({
-    secret: 'change-this-to-a-real-secret',
-    resave: false,
-    saveUninitialized: false
-}));
-
-// Backend API URL - Sprint 1 Flask server
 const API_BASE_URL = 'http://localhost:5001';
 
-// Middleware to check if user is logged in
-function requireLogin(req, res, next) {
-    if (!req.session.user_id) {
-        return res.redirect('/login.html');
-    }
-    next();
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('login-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const messageEl = document.getElementById('form-message');
 
-app.get('/', (req, res) => {
-    res.redirect('/login.html');
-});
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-app.post('/login', async (req, res) => {
-    try {
-        const { username, password } = req.body;
+        const payload = {
+            username: document.getElementById('username').value.trim(),
+            pass_word: document.getElementById('password').value
+        };
 
-        const response = await axios.post(`${API_BASE_URL}/login`, {
-            username,
-            pass_word: password
-        });
+        messageEl.textContent = '';
+        submitBtn.disabled = true;
 
-        if (response.status === 200) {
-            req.session.user_id = response.data.user_id;
-
-            // const initials =
-            //     response.data.fname.charAt(0).toUpperCase() +
-            //     response.data.lname.charAt(0).toUpperCase();
-
-            return res.json({
-                message: 'Login successful',
-                user_id: response.data.user_id,
-                // initials: initials
+        try {
+            const res = await fetch(`${API_BASE_URL}/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
             });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                localStorage.setItem('user_id', data.user_id);
+
+                // give random avatar color to user
+                const initials =
+                    data.fname.charAt(0).toUpperCase() +
+                    data.lname.charAt(0).toUpperCase();
+
+                localStorage.setItem('userInitials', initials);
+
+                const colorKey = `avatarColor_${data.user_id}`;
+                let avatarColor = localStorage.getItem(colorKey);
+
+                if (!avatarColor) {
+                    avatarColor = getRandomAvatarColor();
+                    localStorage.setItem(colorKey, avatarColor );
+                }
+                localStorage.setItem('avatarColor', avatarColor);
+
+                window.location.href = 'places.html';
+            } else {
+                messageEl.textContent = data.message || 'Login failed. Please try again.';
+            }
+        } catch (err) {
+            console.error('Login request failed:', err);
+            messageEl.textContent = 'Unable to reach the server. Please try again.';
+        } finally {
+            submitBtn.disabled = false;
         }
-    } catch (err) {
-        console.error('Login error:', err.message);
-        if (err.response) {
-            console.error('Backend response:', err.response.status, err.response.data);
-            return res.status(err.response.status).json(err.response.data);
-        }
-        res.status(500).json({ message: 'Unable to reach login service' });
-    }
+    });
 });
 
-module.exports = { app, requireLogin };
-const PORT = 3000;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+function getRandomAvatarColor() {
+    const colors = [
+        "#4A7C59",
+        "#5C6BC0",
+        "#8E5EA2",
+        "#C96A4A",
+        "#3F7C85",
+        "#B07A3F",
+        "#7A6F9B",
+        "#4F8A8B",
+        "#D56A6A",
+        "#6A8EAE",
+        "#A06B9A",
+        "#708B75"
+    ];
+
+    const randomIndex =
+        Math.floor(
+            Math.random() * colors.length
+        );
+
+    return colors[randomIndex];
+}

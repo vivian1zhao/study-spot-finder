@@ -1,0 +1,67 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+
+.user-initials {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-left: 12px;
+
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    user-select: none;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-right a {
+  margin-right: 20px;
+  text-decoration: none;
+  color: #444;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-right a:hover {
+  color: #000;
+}
+
+#dark-toggle {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #444;
+  transition: color 0.3s ease;
+}

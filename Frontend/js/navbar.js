@@ -7,35 +7,33 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const initials = localStorage.getItem("userInitials");
+  const userId = localStorage.getItem("user_id");
 
   // if no one's logged in, keep circle hidden
-  if (!initials) {
-    return;
+  if (!initials || !userId) {
+        return;
   }
 
   initialsElement.textContent = initials;
-  initialsElement.style.backgroundColor = getInitialsColor(initials);
-  initialsElement.hidden = false;
-});
 
+  const colorKey = `avatarColor_${userId}`;
+  let avatarColor = localStorage.getItem(colorKey);
 
-function getInitialsColor(initials) {
-  const colors = [
-    "#4A7C59",
-    "#5C6BC0",
-    "#8E5EA2",
-    "#C96A4A",
-    "#3F7C85",
-    "#B07A3F",
-    "#7A6F9B",
-    "#4F8A8B"
-  ];
-
-  let total = 0;
-
-  for (let i = 0; i < initials.length; i++) {
-    total += initials.charCodeAt(i);
+  if (!avatarColor) {
+      avatarColor = localStorage.getItem("avatarColor");
   }
 
-  return colors[total % colors.length];
-}
+  if (avatarColor) {
+      initialsElement.style.backgroundColor = avatarColor;
+  }
+
+  initialsElement.hidden = false;
+  initialsElement.style.cursor = "pointer";
+
+  initialsElement.addEventListener(
+      "click",
+      () => {
+          window.location.href = "profile.html";
+      }
+  );
+});

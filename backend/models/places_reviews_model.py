@@ -87,6 +87,127 @@ def add_review(data):
     cursor.close()
     db.close()
 
+def get_user_reviews(user_id):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+
+    query = """
+        SELECT
+            r.review_id,
+            r.place_id,
+            r.user_id,
+            p.place_name,
+            r.overall_rating,
+            r.noise,
+            r.seating,
+            r.outlets,
+            r.wifi,
+            r.food,
+            r.opening_hours,
+            r.parking,
+            r.comments
+        FROM Reviews r
+        JOIN Places p
+            ON r.place_id = p.place_id
+        WHERE r.user_id = %s
+    """
+
+    cursor.execute(query, (user_id,))
+    reviews = cursor.fetchall()
+
+    cursor.close()
+    db.close()
+
+    return reviews
+
+def update_review(user_id, review_id, data):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+
+    # Get place_id first so we can update its average later
+    cursor.execute("""
+        SELECT place_id
+        FROM Reviews
+        WHERE review_id = %s
+          AND user_id = %s
+    """, (review_id, user_id))
+
+    review = cursor.fetchone()
+
+    if review is None:
+        cursor.close()
+        db.close()
+        return None
+
+    place_id = review["place_id"]
+
+    cursor.execute("""
+        UPDATE Reviews
+        SET overall_rating = %s,
+            noise = %s,
+            seating = %s,
+            outlets = %s,
+            wifi = %s,
+            food = %s,
+            opening_hours = %s,
+            parking = %s,
+            comments = %s
+        WHERE review_id = %s
+          AND user_id = %s
+    """, (
+        data.get("overall_rating"),
+        data.get("noise"),
+        data.get("seating"),
+        data.get("outlets"),
+        data.get("wifi"),
+        data.get("food"),
+        data.get("opening_hours"),
+        data.get("parking"),
+        data.get("comments"),
+        review_id,
+        user_id
+    ))
+
+    db.commit()
+
+    cursor.close()
+    db.close()
+
+    return place_id
+
+def delete_review(user_id, review_id):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+
+    cursor.execute("""
+        SELECT place_id
+        FROM Reviews
+        WHERE review_id = %s
+          AND user_id = %s
+    """, (review_id, user_id))
+
+    review = cursor.fetchone()
+
+    if review is None:
+        cursor.close()
+        db.close()
+        return None
+
+    place_id = review["place_id"]
+
+    cursor.execute("""
+        DELETE FROM Reviews
+        WHERE review_id = %s
+          AND user_id = %s
+    """, (review_id, user_id))
+
+    db.commit()
+
+    cursor.close()
+    db.close()
+
+    return place_id
+
 
 # ------------------ review trigger logic / RATING UPDATE ------------------
 

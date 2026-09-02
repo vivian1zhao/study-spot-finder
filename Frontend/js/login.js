@@ -27,6 +27,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (res.ok) {
                 localStorage.setItem('user_id', data.user_id);
+
+                // give random avatar color to user
+                const initials =
+                    data.fname.charAt(0).toUpperCase() +
+                    data.lname.charAt(0).toUpperCase();
+
+                localStorage.setItem('userInitials', initials);
+
+                const colorKey = `avatarColor_${data.user_id}`;
+                let avatarColor = localStorage.getItem(colorKey);
+
+                if (!avatarColor) {
+                    avatarColor = getRandomAvatarColor();
+                    localStorage.setItem(colorKey, avatarColor );
+                }
+                localStorage.setItem('avatarColor', avatarColor);
+
                 window.location.href = 'places.html';
             } else {
                 messageEl.textContent = data.message || 'Login failed. Please try again.';
@@ -39,3 +56,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+function getRandomAvatarColor() {
+    const colors = [
+        "#4A7C59",
+        "#5C6BC0",
+        "#8E5EA2",
+        "#C96A4A",
+        "#3F7C85",
+        "#B07A3F",
+        "#7A6F9B",
+        "#4F8A8B",
+        "#D56A6A",
+        "#6A8EAE",
+        "#A06B9A",
+        "#708B75"
+    ];
+
+    const randomIndex =
+        Math.floor(
+            Math.random() * colors.length
+        );
+
+    return colors[randomIndex];
+}

@@ -44,7 +44,10 @@ app.post('/login', async (req, res) => {
 
         if (response.status === 200) {
             req.session.user_id = response.data.user_id;
-            return res.json({ message: 'Login successful' });
+            return res.json({
+                message: 'Login successful',
+                user_id: response.data.user_id  // store user_id in session
+            });
         }
     } catch (err) {
         console.error('Login error:', err.message);

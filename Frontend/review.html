@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Write a Review | StudySpot</title>
+  <link rel="stylesheet" href="css/review.css">
+</head>
+
+<body>
+  <div class="review-bg"></div>
+
+  <nav class="navbar">
+    <a href="Places.html" class="logo">StudySpot</a>
+
+    <div class="nav-right">
+      <a href="Places.html">Places</a>
+      <a href="Search.html">Search</a>
+      <a href="Favorites.html">Favorites</a>
+      <a href="Review.html">Review</a>
+      <button id="dark-toggle">🌙</button>
+    </div>
+  </nav>
+
+  <p id="welcome-user" class="welcome-user"></p>
+
+  <header>
+    <h1>Share Your Experience</h1>
+    <p class="subtitle">Help others find their perfect study spot</p>
+  </header>
+
+  <section class="review-section">
+    <div class="review-card">
+
+      <select id="place-select">
+        <option value="">Select a place</option>
+      </select>
+
+      <select id="rating-select">
+        <option value="">Rating</option>
+        <option value="1">⭐ 1</option>
+        <option value="2">⭐ 2</option>
+        <option value="3">⭐ 3</option>
+        <option value="4">⭐ 4</option>
+        <option value="5">⭐ 5</option>
+      </select>
+
+      <textarea id="review-text" placeholder="Write your review..."></textarea>
+
+      <button id="submit-review">Submit Review</button>
+    </div>
+  </section>
+
+  <div id="success-popup" class="success-popup">
+    <p>Review submitted!</p>
+  </div>
+
+  <script src="js/review.js"></script>
+</body>
+</html>

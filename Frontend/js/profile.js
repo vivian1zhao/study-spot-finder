@@ -81,56 +81,41 @@ function getLoggedInUserId() {
    ========================= */
 
 async function loadProfile() {
-    const userId =
-        getLoggedInUserId();
+    const userId = getLoggedInUserId();
 
     if (!userId) {
-        showError(
-            "Log in to view your profile."
-        );
-
+        showError("Log in to view your profile.");
         return;
     }
 
-
     loadProfileAvatar(userId);
-
-
-    const loading =
-        document.getElementById("loading");
+    const loading = document.getElementById("loading");
 
     if (loading) {
-        loading.style.display =
-            "block";
+        loading.style.display = "block";
     }
-
 
     try {
         await Promise.all([
+            loadUserInfo(userId),
             loadFavorites(userId),
             loadReviews(userId)
         ]);
 
         if (loading) {
-            loading.style.display =
-                "none";
+            loading.style.display = "none";
         }
 
     } catch (error) {
         console.error(error);
 
-        showError(
-            "Could not load your profile. Try again later."
-        );
+        showError("Could not load your profile. Try again later.");
     }
 }
 
-
 function loadProfileAvatar(userId) {
     const profileAvatar =
-        document.getElementById(
-            "profile-avatar"
-        );
+        document.getElementById("profile-avatar");
 
     if (!profileAvatar) {
         return;
@@ -138,19 +123,13 @@ function loadProfileAvatar(userId) {
 
 
     const initials =
-        localStorage.getItem(
-            "userInitials"
-        );
+        localStorage.getItem("userInitials");
 
     if (initials) {
-        profileAvatar.textContent =
-            initials;
+        profileAvatar.textContent = initials;
     }
 
-
-    const colorKey =
-        `avatarColor_${userId}`;
-
+    const colorKey = `avatarColor_${userId}`;
     const avatarColor =
         localStorage.getItem(colorKey) ||
         localStorage.getItem(
@@ -158,8 +137,72 @@ function loadProfileAvatar(userId) {
         );
 
     if (avatarColor) {
-        profileAvatar.style.backgroundColor =
-            avatarColor;
+        profileAvatar.style.backgroundColor = avatarColor;
+    }
+}
+
+async function loadUserInfo(userId) {
+    const response = await fetch(
+        `${API_BASE}/users/${userId}`
+    );
+
+    if (!response.ok) {
+        throw new Error("Failed to load user information");
+    }
+
+    const user = await response.json();
+
+    const profileName =
+        document.getElementById("profile-name");
+
+    const profileUsername =
+        document.getElementById("profile-username");
+
+    const profileEmail =
+        document.getElementById("profile-email");
+
+    const profileLocation =
+        document.getElementById("profile-location");
+
+    if (profileName) {
+        profileName.textContent = `${user.fname} ${user.lname}`;
+    }
+
+    if (profileUsername) {
+        profileUsername.textContent = `@${user.username}`;
+    }
+
+    if (profileEmail) {
+        profileEmail.textContent = user.email || "";
+    }
+
+    if (profileLocation) {
+        if (user.city && user.state) {
+            profileLocation.textContent = `${user.city}, ${user.state}`;
+
+        } else if (user.city) {
+            profileLocation.textContent = user.city;
+
+        } else if (user.state) {
+            profileLocation.textContent = user.state;
+
+        } else {
+            profileLocation.textContent = "";
+        }
+    }
+
+    const initials =
+        user.fname.charAt(0).toUpperCase() +
+        user.lname.charAt(0).toUpperCase();
+
+    const profileAvatar =
+        document.getElementById(
+            "profile-avatar"
+        );
+
+    if (profileAvatar) {
+        profileAvatar.textContent =
+            initials;
     }
 }
 

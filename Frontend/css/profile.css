@@ -214,17 +214,45 @@ body.dark .details-btn:hover {
   font-weight: 700;
 }
 
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-header h1 {
+    margin-bottom: 6px;
+}
+
+.profile-username {
+    margin: 0;
+    color: #4a7c59;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.profile-email {
+    margin: 8px 0 6px;
+    color: #555;
+}
+
+.profile-location {
+    margin: 0;
+    color: #777;
+    font-size: 0.95rem;
+}
+
+body.dark .profile-email,
+body.dark .profile-location {
+    color: #ccc;
+}
 
 /* SECTIONS */
 
 .profile-section {
   background: rgba(255,255,255,0.9);
-
   border-radius: 14px;
-
   padding: 22px;
   margin-bottom: 24px;
-
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 

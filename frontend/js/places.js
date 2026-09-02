@@ -35,6 +35,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         container.appendChild(card);
       });
+
+      // link button to place_details.html
+      container.querySelectorAll(".details-btn").forEach((button) => {
+        button.addEventListener("click", () => {
+          window.location.href = `place_details.html?id=${button.dataset.id}`;
+        });
+      });
+      
     })
     .catch(err => {
       loading.style.display = "none";

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Register · StudySpot</title>
+        <link rel="stylesheet" href="css/register.css">
+    </head>
+    <body>
+        <nav class="navbar">
+        <div class="nav-left">
+            <span class="logo"><h2>StudySpot</h2></span>
+        </nav>
+
+        <main>
+            <div class="login-card">
+                <h1>Create an account</h1>
+                <p class="subtitle">Sign up to find new Spots and leave reviews</p>
+
+                <form id="register-form" novalidate>
+                    <div class="field">
+                        <label for="fname">First name</label>
+                        <input type="text" id="fname" name="fname" autocomplete="given-name" required>
+                    </div>
+                    <div class="field">
+                        <label for="lname">Last name</label>
+                        <input type="text" id="lname" name="lname" autocomplete="family-name" required>
+                    </div>
+                    <div class="field">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" autocomplete="username" required>
+                    </div>
+                    <div class="field">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" autocomplete="new-password" required>
+                    </div>
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" autocomplete="email" required>
+                    </div>
+                    <div class="field">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone" autocomplete="tel">
+                    </div>
+                    <div class="field">
+                        <label for="address">Address</label>
+                        <input type="text" id="address" name="address" autocomplete="street-address">
+                    </div>
+                    <div class="field">
+                        <label for="city">City</label>
+                        <input type="text" id="city" name="city" autocomplete="address-level2">
+                    </div>
+                    <div class="field">
+                        <label for="state">State</label>
+                        <input type="text" id="state" name="state" autocomplete="address-level1">
+                    </div>
+                    <button type="submit" class="submit" id="submit-btn"><a href="login.html">Create account</a></button>
+                    <div id="form-message" role="status" aria-live="polite"></div>
+                </form>
+                <p class="signup-hint">Already have an account?<a href="login.html"> Log in</a></p>
+            </div>
+        </main>
+        <script src="Frontend/register.js"></script>
+
+    </body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudySpot</title>
+  <link rel="stylesheet" href="css/favs_placedetails.css">
+
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="Places.html" class="logo">StudySpot</a>
+    </div>
+
+    <div class="nav-right">
+      <a href="Places.html">Places</a>
+      <a href="Search.html">Search</a>
+      <a href="Favorites.html">Favorites</a>
+      <a href="Review.html">Review</a>
+      <button id="dark-toggle">🌙</button>
+    </div>
+  </nav>
+
+  <div id="loading" class="loading-spinner"></div>
+
+  <header id="place-header" hidden>
+    <h1 id="place-name"></h1>
+    <p class="subtitle" id="place-type"></p>
+    <p class="subtitle" id="place-address"></p>
+    <button id="favorite-btn" class="details-btn">Add to Favorites</button>
+  </header>
+
+  <p id="error-message" class="error-message" hidden></p>
+
+  <main id="place-details" class="place-details-container" hidden>
+    
+    <!-- overall rating + other avg ratings (e.g., noise level, seating, outlets, etc.) -->
+    <section class="place-card details-section">
+      <h2>Ratings</h2>
+
+      <div class="overall-rating-feature">
+        <div class="overall-rating-label">Overall Rating</div>
+        <div class="overall-rating-score">
+          <span class="overall-rating-star">⭐</span>
+          <span id="overall-rating" class="rating"></span>
+        </div>
+        <div class="overall-rating-caption">Average rating from reviews</div>
+      </div>
+
+      <div class="ratings-grid">
+        <div class="rating-item">
+          <strong>Noise level</strong>
+          <span id="noise-rating" class="rating"></span>
+        </div>
+        <div class="rating-item">
+          <strong>Seating</strong>
+          <span id="seating-rating" class="rating"></span>
+        </div>
+        <div class="rating-item">
+          <strong>Outlets</strong>
+          <span id="outlets-rating" class="rating"></span>
+        </div>
+        <div class="rating-item">
+          <strong>Wi-Fi</strong>
+          <span id="wifi-rating" class="rating"></span>
+        </div>
+        <div class="rating-item">
+          <strong>Food</strong>
+          <span id="food-rating" class="rating"></span>
+        </div>
+        <div class="rating-item">
+          <strong>Opening Hours</strong>
+          <span id="hours-rating" class="rating"></span>
+        </div>
+        <div class="rating-item">
+          <strong>Parking</strong>
+          <span id="parking-rating" class="rating"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- amenities section -->
+    <section class="place-card details-section">
+      <h2>Amenities</h2>
+      <ul id="amenities-list"></ul>
+    </section>
+
+    <!-- opening hours section -->
+    <section class="place-card details-section">
+      <h2>Opening Hours</h2>
+      <div id="opening-hours"></div>
+    </section>
+
+    <!-- reviews section (view / make reviews) -->
+    <section class="place-card details-section">
+      <div class="reviews-heading">
+        <h2>Reviews</h2>
+        <a id="write-review-link" href="review.html">
+          <button type="button" class="details-btn">Write a Review</button>
+        </a>
+      </div>
+      <div id="reviews-container"></div>
+    </section>
+  </main>
+
+  <script src="js/place_details.js"></script>
+</body>
+</html>

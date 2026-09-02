@@ -1,4 +1,4 @@
-//login js 
+//login js file
 const API_BASE_URL = 'http://localhost:5001';
 
 document.addEventListener('DOMContentLoaded', () => {

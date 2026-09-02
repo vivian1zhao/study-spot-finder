@@ -45,4 +45,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-// register javascript file
+// register js file

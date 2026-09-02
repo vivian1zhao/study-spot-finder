@@ -1,4 +1,4 @@
-//login js
+//login js 
 const API_BASE_URL = 'http://localhost:5001';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -38,8 +38,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
-
-module.exports = { app, requireLogin };
-const PORT = 3000;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

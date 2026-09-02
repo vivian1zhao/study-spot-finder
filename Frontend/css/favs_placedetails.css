@@ -42,12 +42,35 @@ body {
   transition: background 0.5s ease, box-shadow 0.5s ease;
 }
 
+.user-initials {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-left: 12px;
+
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  user-select: none;
+}
+
 .logo {
   font-size: 1.4rem;
   font-weight: 700;
   color: #333;
   text-decoration: none;
   transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
 }
 
 .nav-right a {
@@ -273,14 +296,33 @@ body.dark .details-btn:hover {
 
 .overall-rating-score {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
+  gap: 3px;
 }
 
-.overall-rating-star {
+.star-rating {
+  position: relative;
+  display: inline-block;
   font-size: 1.8rem;
-  color: #4a7c59;
+  line-height: 1;
+  letter-spacing: 2px;
+}
+
+.stars-background {
+  color: #d3d3d3;
+}
+
+.stars-filled {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+
+  color: #f4b400;
 }
 
 .overall-rating-feature #overall-rating {
@@ -304,10 +346,6 @@ body.dark .overall-rating-feature {
 body.dark .overall-rating-label,
 body.dark .overall-rating-caption {
   color: #cfcfcf;
-}
-
-body.dark .overall-rating-star {
-  color: #5a9c6f;
 }
 
 .ratings-grid {
@@ -442,6 +480,17 @@ body.dark .hours-closed {
 
 .review-card h3 {
   margin: 0 0 8px;
+}
+
+.review-rating {
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.review-stars {
+  font-size: 1.3rem;
 }
 
 #place-header .details-btn {

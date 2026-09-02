@@ -32,7 +32,12 @@ def login():
     user = model.get_user_by_credentials(username, password)
 
     if user:
-        return jsonify({"message": "Login successful", "user_id": user["user_id"]}), 200
+        return jsonify({
+            "message": "Login successful",
+            "user_id": user["user_id"],
+            "fname": user["fname"],
+            "lname": user["lname"]
+        }), 200
 
     return jsonify({"message": "Invalid username and/or password"}), 401
 

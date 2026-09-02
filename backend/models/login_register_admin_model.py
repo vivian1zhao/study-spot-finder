@@ -6,7 +6,7 @@ def get_user_by_credentials(username, password):
     cursor = connection.cursor(dictionary=True)
 
     query = """
-        SELECT user_id, username
+        SELECT user_id, username, fname, lname
         FROM Users
         WHERE username = %s
             AND pass_word = %s

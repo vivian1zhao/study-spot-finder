@@ -6,7 +6,7 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static(__dirname));
 
 app.use(session({
     secret: 'change-this-to-a-real-secret',
@@ -25,14 +25,10 @@ function requireLogin(req, res, next) {
     next();
 }
 
-// ===== serve the login page =====
-// with a static public/login.html, this route isn't needed for GET /login —
-// express.static already serves it. Kept here only if you want / to alias to it.
 app.get('/', (req, res) => {
     res.redirect('/login.html');
 });
 
-// Handle login - connects to Sprint 1 login API
 app.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -44,9 +40,15 @@ app.post('/login', async (req, res) => {
 
         if (response.status === 200) {
             req.session.user_id = response.data.user_id;
+
+            // const initials =
+            //     response.data.fname.charAt(0).toUpperCase() +
+            //     response.data.lname.charAt(0).toUpperCase();
+
             return res.json({
                 message: 'Login successful',
-                user_id: response.data.user_id  // store user_id in session
+                user_id: response.data.user_id,
+                // initials: initials
             });
         }
     } catch (err) {
@@ -60,3 +62,5 @@ app.post('/login', async (req, res) => {
 });
 
 module.exports = { app, requireLogin };
+const PORT = 3000;
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

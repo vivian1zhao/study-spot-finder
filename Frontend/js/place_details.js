@@ -78,8 +78,7 @@ function displayRatings(ratings) {
     return;
   }
 
-  document.getElementById("overall-rating").textContent =
-    formatRating(ratings.avg_rating);
+  displayOverallRating(ratings.avg_rating);
   document.getElementById("noise-rating").textContent =
     formatRating(ratings.avg_noise);
   document.getElementById("seating-rating").textContent =
@@ -96,6 +95,30 @@ function displayRatings(ratings) {
     formatRating(ratings.avg_parking);
 }
 
+function displayOverallRating(rating) {
+  const ratingElement = document.getElementById("overall-rating");
+  const starsFilled = document.getElementById("stars-filled");
+
+  if (rating === null || rating === undefined || rating === "") {
+    ratingElement.textContent = "N/A";
+    starsFilled.style.width = "0%";
+    return;
+  }
+
+  const value = Number(rating);
+
+  if (Number.isNaN(value)) {
+    ratingElement.textContent = "N/A";
+    starsFilled.style.width = "0%";
+    return;
+  }
+
+  ratingElement.textContent = value.toFixed(1);
+
+  const percentage = (value / 5) * 100;
+  starsFilled.style.width = `${percentage}%`;
+}
+
 function formatRating(rating) {
   if (rating === null || rating === undefined || rating === "") {
     return "N/A";
@@ -106,7 +129,7 @@ function formatRating(rating) {
     return "N/A";
   }
 
-  return `${value.toFixed(1)} / 5`;
+  return `${value.toFixed(1)} ★`;
 }
 
 function displayAmenities(amenities) {
@@ -127,24 +150,6 @@ function displayAmenities(amenities) {
     list.appendChild(item);
   });
 }
-
-// function displayAmenities(amenities) {
-//   const list = document.getElementById("amenities-list");
-//   list.replaceChildren();
-//
-//   if (!amenities || amenities.length === 0) {
-//     const item = document.createElement("li");
-//     item.textContent = "No amenities listed";
-//     list.appendChild(item);
-//     return;
-//   }
-//
-//   amenities.forEach((amenity) => {
-//     const item = document.createElement("li");
-//     item.textContent = amenity.amenity_name;
-//     list.appendChild(item);
-//   });
-// }
 
 function displayOpeningHours(hours) {
   const container = document.getElementById("opening-hours");
@@ -229,6 +234,32 @@ function formatTime(time) {
   return `${hour}:${minute} ${period}`;
 }
 
+function createStarRating(rating) {
+  const starRating = document.createElement("div");
+  starRating.className = "star-rating review-stars";
+
+  const background = document.createElement("div");
+  background.className = "stars-background";
+  background.textContent = "★★★★★";
+
+  const filled = document.createElement("div");
+  filled.className = "stars-filled";
+  filled.textContent = "★★★★★";
+
+  const value = Number(rating);
+
+  if (!Number.isNaN(value)) {
+    const percentage = (value / 5) * 100;
+    filled.style.width = `${percentage}%`;
+  } else {
+    filled.style.width = "0%";
+  }
+
+  starRating.append(background, filled);
+
+  return starRating;
+}
+
 function displayReviews(reviews) {
   const container = document.getElementById("reviews-container");
   container.replaceChildren();
@@ -247,10 +278,17 @@ function displayReviews(reviews) {
     const name = document.createElement("h3");
     name.textContent = `${review.fname} ${review.lname}`;
 
-    const rating = document.createElement("p");
+    // gives five stars filled based on rating number
+    const rating = document.createElement("div");
+    rating.className = "review-rating";
+
     const ratingLabel = document.createElement("strong");
-    ratingLabel.textContent = "Overall Rating: ";
-    rating.append(ratingLabel, formatRating(review.overall_rating));
+    ratingLabel.textContent = `Overall Rating: ${Number(review.overall_rating).toFixed(1)}`;
+
+    const stars = createStarRating(review.overall_rating);
+
+    rating.append(ratingLabel, stars);
+
 
     const comments = document.createElement("p");
     comments.textContent = review.comments || "No comment provided.";

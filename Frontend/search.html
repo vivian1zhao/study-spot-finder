@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Search | StudySpot</title>
+  <link rel="stylesheet" href="css/search.css">
+</head>
+
+<body>
+  <div class="floating-icons"></div>
+
+  <nav class="navbar">
+    <a href="Places.html" class="logo">StudySpot</a>
+
+    <div class="nav-right">
+      <a href="Places.html">Places</a>
+      <a href="Search.html">Search</a>
+      <a href="Favorites.html">Favorites</a>
+      <a href="Review.html">Review</a>
+      <button id="dark-toggle">🌙</button>
+    </div>
+  </nav>
+
+  <header>
+    <h1>Find Your Perfect Study Spot</h1>
+    <p class="subtitle">Search by city or type to discover cozy places</p>
+  </header>
+
+  <section class="search-section">
+    <div class="search-box">
+      <select id="city-select">
+        <option value="">City</option>
+        <option value="Houston">Houston</option>
+        <option value="Manalapan">Manalapan</option>
+        <option value="New York">New York</option>
+      </select>
+
+      <select id="type-select">
+        <option value="">Type</option>
+        <option value="Cafe">Cafe</option>
+        <option value="Library">Library</option>
+        <option value="Lounge">Lounge</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <button id="search-btn">Search</button>
+    </div>
+  </section>
+
+  <section class="results-section">
+    <div id="results-container" class="results-grid"></div>
+  </section>
+
+  <script src="js/search.js"></script>
+</body>
+</html>

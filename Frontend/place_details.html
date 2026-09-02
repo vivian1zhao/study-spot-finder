@@ -20,6 +20,7 @@
       <a href="Favorites.html">Favorites</a>
       <a href="Review.html">Review</a>
       <button id="dark-toggle">🌙</button>
+      <div id="user-initials" class="user-initials" hidden></div>
     </div>
   </nav>
 
@@ -43,8 +44,12 @@
       <div class="overall-rating-feature">
         <div class="overall-rating-label">Overall Rating</div>
         <div class="overall-rating-score">
-          <span class="overall-rating-star">⭐</span>
           <span id="overall-rating" class="rating"></span>
+
+          <div class="star-rating" aria-label="Overall rating">
+            <div class="stars-background">★★★★★</div>
+            <div id="stars-filled" class="stars-filled">★★★★★</div>
+          </div>
         </div>
         <div class="overall-rating-caption">Average rating from reviews</div>
       </div>
@@ -106,5 +111,6 @@
   </main>
 
   <script src="js/place_details.js"></script>
+  <script src="js/navbar.js"></script>
 </body>
 </html>

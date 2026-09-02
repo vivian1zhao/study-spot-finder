@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudySpot</title>
+  <link rel="stylesheet" href="css/favs_placedetails.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="Places.html" class="logo">StudySpot</a>
+    </div>
+
+    <div class="nav-right">
+      <a href="Places.html">Places</a>
+      <a href="Search.html">Search</a>
+      <a href="Favorites.html">Favorites</a>
+      <a href="Review.html">Review</a>
+      <button id="dark-toggle">🌙</button>
+    </div>
+  </nav>
+
+  <header>
+    <h1>Your Favorites</h1>
+    <p class="subtitle">Study spots you saved for later.</p>
+  </header>
+
+  <div id="loading" class="loading-spinner"></div>
+  <p id="error-message" class="error-message" hidden></p>
+  
+  <main>
+    <div id="favorites-container" class="places-grid"></div>
+  </main>
+
+  <script src="js/favorites.js"></script>
+</body>
+</html>

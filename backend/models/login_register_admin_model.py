@@ -20,6 +20,24 @@ def get_user_by_credentials(username, password):
 
     return user
 
+def get_user_by_id(user_id):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+
+    query = """
+        SELECT user_id, fname, lname, username, email, city, state
+        FROM Users
+        WHERE user_id = %s
+    """
+
+    cursor.execute(query, (user_id,))
+    user = cursor.fetchone()
+
+    cursor.close()
+    db.close()
+
+    return user
+
 
 # REGISTRATION
 

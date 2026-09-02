@@ -75,6 +75,17 @@ def newuser():
 
     return jsonify({"record": new_record, "message": "Record added"}), 201
 
+@users_bp.get("/users/<int:user_id>")
+def get_user(user_id):
+    user = model.get_user_by_id(user_id)
+
+    if user is None:
+        return jsonify({
+            "message": "User not found"
+        }), 404
+
+    return jsonify(user), 200
+
 
 # ------------------ ADMIN: PLACES ------------------
 

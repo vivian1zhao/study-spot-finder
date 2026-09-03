@@ -16,9 +16,13 @@ function showError(message) {
   const loading = document.getElementById("loading");
   const errorMessage = document.getElementById("error-message");
   const container = document.getElementById("favorites-container");
+  const noFavorites = document.getElementById("no-favorites");
 
   loading.style.display = "none";
+
   container.replaceChildren();
+  container.style.display = "none";
+
   errorMessage.hidden = false;
   errorMessage.textContent = message;
 }
@@ -27,10 +31,14 @@ async function loadFavorites() {
   const loading = document.getElementById("loading");
   const errorMessage = document.getElementById("error-message");
   const container = document.getElementById("favorites-container");
+  const noFavorites = document.getElementById("no-favorites");
   const userId = getLoggedInUserId();
 
   errorMessage.hidden = true;
+  noFavorites.hidden = true;
+
   container.replaceChildren();
+  container.style.display = "grid";
 
   if (!userId) {
     showError("Log in to see your favorites.");
@@ -40,7 +48,9 @@ async function loadFavorites() {
   loading.style.display = "block";
 
   try {
-    const response = await fetch(`${API_BASE}/users/${userId}/favorites`);
+    const response = await fetch(
+        `${API_BASE}/users/${userId}/favorites`
+    );
 
     if (!response.ok) {
       throw new Error("Failed to load favorites");
@@ -56,7 +66,8 @@ async function loadFavorites() {
     }
 
     if (favorites.length === 0) {
-      showError("You have no favorite study spots yet.");
+      container.style.display = "none";
+      noFavorites.hidden = false;
       return;
     }
 

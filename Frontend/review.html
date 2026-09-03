@@ -2,62 +2,425 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Write a Review | StudySpot</title>
+
   <link rel="stylesheet" href="css/review.css">
+  <link rel="stylesheet" href="css/navbar.css">
 </head>
 
 <body>
-  <div class="floating-blobs"></div>
+  <div class="background-glow glow-one"></div>
+  <div class="background-glow glow-two"></div>
 
   <nav class="navbar">
-    <a href="Places.html" class="logo">StudySpot</a>
+    <a href="Places.html" class="logo">
+       <span>StudySpot</span>
+    </a>
+
     <div class="nav-right">
       <a href="Places.html">Places</a>
       <a href="Search.html">Search</a>
       <a href="Favorites.html">Favorites</a>
-      <a href="Review.html">Review</a>
-      <button id="dark-toggle">🌙</button>
-      <div id="user-initials" class="user-initials" hidden></div>
+      <a href="Review.html" class="active-link">Review</a>
+      
+
+      <button
+        id="dark-toggle"
+        class="icon-button"
+        type="button"
+        aria-label="Toggle dark mode"
+      >
+        🌙
+      </button>
+       <div id="user-initials" class="user-initials" hidden></div>
     </div>
   </nav>
 
-  <header>
-    <h1>Share Your Experience</h1>
-    <p class="subtitle">Help others find their perfect study spot</p>
-  </header>
+  <main class="page-shell">
+    <header class="page-header">
+      <span class="eyebrow">COMMUNITY REVIEW</span>
+      <h1>How was your study session?</h1>
 
-  <section class="review-section">
-    <div id="login-prompt"></div>
-  </section>
+      <p>
+        Share what mattered. Overall rating and comments are required,
+        everything else is optional.
+      </p>
 
-  <section class="review-section">
-    <div class="review-card">
-      <label class="input-label">Select a place</label>
-      <select id="place-select">
-        <option value="">Select a place</option>
-      </select>
+      <div id="login-prompt"></div>
+    </header>
 
-      <label class="input-label">Rating</label>
-      <select id="rating-select">
-        <option value="">Rating</option>
-        <option value="1">⭐ 1</option>
-        <option value="2">⭐ 2</option>
-        <option value="3">⭐ 3</option>
-        <option value="4">⭐ 4</option>
-        <option value="5">⭐ 5</option>
-      </select>
+    <div class="review-layout">
+      <section class="review-studio">
 
-      <label class="input-label">Your Review</label>
-      <textarea id="review-text" placeholder="Write your review..."></textarea>
 
-      <button id="submit-review">Submit Review</button>
+        <div class="review-step">
+          <div class="step-number">1</div>
+
+          <div class="step-content">
+            <div class="step-heading">
+              <div>
+                <span class="step-label">STUDY SPOT</span>
+                <h2>Where did you study?</h2>
+              </div>
+
+              <span class="required-badge">Required</span>
+            </div>
+
+            <label class="screen-reader-only" for="place-select">
+              Select a place
+            </label>
+
+            <div class="select-wrapper">
+              <span class="select-icon">📍</span>
+
+              <select id="place-select">
+                <option value="">Choose a study spot</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="review-step rating-highlight">
+          <div class="step-number">2</div>
+
+          <div class="step-content">
+            <div class="step-heading">
+              <div>
+                <span class="step-label">YOUR IMPRESSION</span>
+                <h2>Give it an overall rating</h2>
+              </div>
+
+              <span class="required-badge">Required</span>
+            </div>
+
+            <div
+              class="star-control overall-stars"
+              data-rating-key="overall_rating"
+              aria-label="Overall rating"
+            ></div>
+
+            <p
+              class="rating-feedback"
+              data-feedback-for="overall_rating"
+            >
+              Hover over a star to begin
+            </p>
+          </div>
+        </div>
+
+    
+        <div class="review-step">
+          <div class="step-number">3</div>
+
+          <div class="step-content">
+            <div class="step-heading">
+              <div>
+                <span class="step-label">THE DETAILS</span>
+                <h2>What stood out?</h2>
+
+                <p class="step-description">
+                  Rate any categories you experienced. It is completely
+                  okay to skip some or all of them.
+                </p>
+              </div>
+
+              <span class="optional-badge">Optional</span>
+            </div>
+
+            <div class="optional-progress">
+              <div>
+                <strong id="optional-count">0</strong>
+                of 7 categories rated
+              </div>
+
+              <button id="clear-optional" type="button">
+                Clear optional ratings
+              </button>
+            </div>
+
+            <div class="category-grid">
+
+              <article class="category-card" data-category="noise">
+                <div class="category-top">
+                  <span class="category-icon">🤫</span>
+
+                  <div>
+                    <h3>Noise level</h3>
+                    <p>1 = loud, 5 = very quiet</p>
+                  </div>
+                </div>
+
+                <div
+                  class="star-control small-stars"
+                  data-rating-key="noise"
+                ></div>
+
+                <p class="rating-feedback" data-feedback-for="noise">
+                  Not rated
+                </p>
+
+                <button
+                  class="clear-rating"
+                  data-clear-rating="noise"
+                  type="button"
+                >
+                  Clear
+                </button>
+              </article>
+
+              <article class="category-card" data-category="seating">
+                <div class="category-top">
+                  <span class="category-icon">🪑</span>
+
+                  <div>
+                    <h3>Seating</h3>
+                    <p>Comfort and availability</p>
+                  </div>
+                </div>
+
+                <div
+                  class="star-control small-stars"
+                  data-rating-key="seating"
+                ></div>
+
+                <p class="rating-feedback" data-feedback-for="seating">
+                  Not rated
+                </p>
+
+                <button
+                  class="clear-rating"
+                  data-clear-rating="seating"
+                  type="button"
+                >
+                  Clear
+                </button>
+              </article>
+
+              <article class="category-card" data-category="outlets">
+                <div class="category-top">
+                  <span class="category-icon">🔌</span>
+
+                  <div>
+                    <h3>Outlets</h3>
+                    <p>Access to charging</p>
+                  </div>
+                </div>
+
+                <div
+                  class="star-control small-stars"
+                  data-rating-key="outlets"
+                ></div>
+
+                <p class="rating-feedback" data-feedback-for="outlets">
+                  Not rated
+                </p>
+
+                <button
+                  class="clear-rating"
+                  data-clear-rating="outlets"
+                  type="button"
+                >
+                  Clear
+                </button>
+              </article>
+
+              <article class="category-card" data-category="wifi">
+                <div class="category-top">
+                  <span class="category-icon">📶</span>
+
+                  <div>
+                    <h3>Wi-Fi</h3>
+                    <p>Speed and reliability</p>
+                  </div>
+                </div>
+
+                <div
+                  class="star-control small-stars"
+                  data-rating-key="wifi"
+                ></div>
+
+                <p class="rating-feedback" data-feedback-for="wifi">
+                  Not rated
+                </p>
+
+                <button
+                  class="clear-rating"
+                  data-clear-rating="wifi"
+                  type="button"
+                >
+                  Clear
+                </button>
+              </article>
+
+              <article class="category-card" data-category="food">
+                <div class="category-top">
+                  <span class="category-icon">☕</span>
+
+                  <div>
+                    <h3>Food</h3>
+                    <p>Quality and options</p>
+                  </div>
+                </div>
+
+                <div
+                  class="star-control small-stars"
+                  data-rating-key="food"
+                ></div>
+
+                <p class="rating-feedback" data-feedback-for="food">
+                  Not rated
+                </p>
+
+                <button
+                  class="clear-rating"
+                  data-clear-rating="food"
+                  type="button"
+                >
+                  Clear
+                </button>
+              </article>
+
+              <article class="category-card" data-category="opening_hours">
+                <div class="category-top">
+                  <span class="category-icon">🕐</span>
+
+                  <div>
+                    <h3>Opening hours</h3>
+                    <p>Convenience and availability</p>
+                  </div>
+                </div>
+
+                <div
+                  class="star-control small-stars"
+                  data-rating-key="opening_hours"
+                ></div>
+
+                <p
+                  class="rating-feedback"
+                  data-feedback-for="opening_hours"
+                >
+                  Not rated
+                </p>
+
+                <button
+                  class="clear-rating"
+                  data-clear-rating="opening_hours"
+                  type="button"
+                >
+                  Clear
+                </button>
+              </article>
+
+              <article class="category-card" data-category="parking">
+                <div class="category-top">
+                  <span class="category-icon">🚗</span>
+
+                  <div>
+                    <h3>Parking</h3>
+                    <p>Availability and convenience</p>
+                  </div>
+                </div>
+
+                <div
+                  class="star-control small-stars"
+                  data-rating-key="parking"
+                ></div>
+
+                <p class="rating-feedback" data-feedback-for="parking">
+                  Not rated
+                </p>
+
+                <button
+                  class="clear-rating"
+                  data-clear-rating="parking"
+                  type="button"
+                >
+                  Clear
+                </button>
+              </article>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="review-step">
+          <div class="step-number">4</div>
+
+          <div class="step-content">
+            <div class="step-heading">
+              <div>
+                <span class="step-label">FINAL THOUGHTS</span>
+                <h2>Tell the community more</h2>
+              </div>
+
+              <span class="required-badge">Required</span>
+            </div>
+
+            <div class="textarea-wrapper">
+              <textarea
+                id="review-text"
+                maxlength="250"
+                placeholder="What made this spot helpful? Was it quiet, comfortable, or good for group work?"
+              ></textarea>
+
+              <span id="character-count">0 / 250</span>
+            </div>
+
+            <button id="submit-review" type="button">
+              <span>Submit Review</span>
+              <span class="submit-arrow">→</span>
+            </button>
+
+            <p id="form-error" class="form-error" hidden></p>
+          </div>
+        </div>
+      </section>
+
+      <aside class="rating-summary">
+        <span class="summary-label">YOUR REVIEW</span>
+        <h2>Rating snapshot</h2>
+
+        <div class="score-ring" id="score-ring">
+          <div class="score-ring-center">
+            <strong id="summary-score">—</strong>
+            <span>out of 5</span>
+          </div>
+        </div>
+
+        <div id="summary-stars" class="summary-stars">
+          ☆☆☆☆☆
+        </div>
+
+        <p id="summary-message">
+          Choose an overall rating to begin.
+        </p>
+
+        <div class="summary-divider"></div>
+
+        <h3>Optional ratings</h3>
+
+        <div id="summary-categories" class="summary-categories">
+          <p class="empty-summary">
+            Add any category ratings that matter to you.
+          </p>
+        </div>
+      </aside>
     </div>
-  </section>
+  </main>
 
   <div id="success-popup" class="success-popup">
-    <p>Review submitted!</p>
+    <span class="success-check">✓</span>
+
+    <div>
+      <strong>Review submitted!</strong>
+      <p>Thanks for helping the StudySpot community.</p>
+    </div>
   </div>
 
   <script src="js/review.js"></script>
+  <script src="js/navbar.js"></script>
 </body>
 </html>

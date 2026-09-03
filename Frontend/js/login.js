@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (res.ok) {
                 localStorage.setItem('user_id', data.user_id);
+                localStorage.setItem('username', payload.username);
 
                 // give random avatar color to user
                 const initials =

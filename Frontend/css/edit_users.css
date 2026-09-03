@@ -1,0 +1,234 @@
+:root{
+    --bg: #fafaf8;
+    --surface: #ffffff;
+    --text:#1f2328;
+    --text-muted: #6b7280;
+    --border: #e5e5e0;
+    --accent: #d9932f;
+    --accent-text: #ffffff;
+    --error: #c0392b;
+    --shadow: rgba(20,20,20,0.06);
+}
+
+html[data-theme="dark"] {
+  --bg: #17181a;
+  --surface: #1f2124;
+  --text: #ece9e2;
+  --text-muted: #9a978f;
+  --border: #33352f;
+  --accent: #e8a94c;
+  --accent-text: #1a1a1a;
+  --shadow: rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.nav-links a:hover,
+.nav-links a:focus-visible {
+  color: var(--text);
+}
+
+#theme-toggle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#theme-toggle:focus-visible,
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  padding: 64px 20px;
+}
+
+/* Single-record edit form — a touch narrower than the registration card
+   since it only holds four fields. */
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 36px 32px;
+  box-shadow: 0 4px 16px var(--shadow);
+}
+
+.login-card h1 {
+  font-size: 24px;
+  margin: 0 0 6px;
+}
+
+.login-card p.subtitle {
+  margin: 0 0 28px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.field {
+  margin-bottom: 18px;
+}
+
+/* Two-column layout for paired fields on wider screens */
+.field-row {
+  display: flex;
+  gap: 16px;
+}
+
+.field-row .field {
+  flex: 1;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  font-family: inherit;
+}
+
+select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--text-muted) 50%),
+    linear-gradient(135deg, var(--text-muted) 50%, transparent 50%);
+  background-position: calc(100% - 18px) center, calc(100% - 13px) center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 32px;
+}
+
+/* Save / Cancel sit side by side so neither reads as the sole way out of the form */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+button.submit,
+button.cancel {
+  flex: 1;
+  padding: 11px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button.submit {
+  border: none;
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+button.submit:hover {
+  opacity: 0.92;
+}
+
+button.submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+button.cancel {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+}
+
+button.cancel:hover {
+  background: var(--bg);
+}
+
+#form-message {
+  min-height: 20px;
+  font-size: 14px;
+  margin-top: 14px;
+  text-align: center;
+}
+
+#form-message.error {
+  color: var(--error);
+}
+
+#form-message.success {
+  color: var(--accent);
+}
+
+.signup-hint {
+  text-align: center;
+  margin-top: 22px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.signup-hint a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}

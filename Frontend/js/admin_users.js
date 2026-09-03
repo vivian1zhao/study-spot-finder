@@ -105,8 +105,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     container.appendChild(card);
 
     card.querySelector(".edit-btn").addEventListener("click", () => {
-      editUser(user);
-    });
+       window.location.href = `edit_users.html?id=${encodeURIComponent(user_id)}`;
+});
+    
 
     card.querySelector(".delete-btn").addEventListener("click", () => {
       deleteUser(user.user_id);

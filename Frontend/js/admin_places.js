@@ -102,13 +102,18 @@ document.addEventListener("DOMContentLoaded", async () => {
   // ---------- Edit / Delete handlers ----------
   function attachCardListeners(places) {
     container.querySelectorAll(".edit-btn").forEach(button => {
-      button.addEventListener("click", () => {
-        const placeId = button.dataset.id;
-        const place = places.find(p => String(p.place_id) === String(placeId));
-        editPlace(placeId, place);
-      });
-    });
-
+  button.addEventListener("click", () => {
+    const placeId = button.dataset.id;
+    const place = places.find(p => String(p.place_id) === String(placeId));
+    // Cache the record client-side since there's no GET /places/<id> endpoint —
+    // the edit page falls back to fetching the full /places list if this is missing.
+    if (place) {
+      sessionStorage.setItem(`editPlace:${placeId}`, JSON.stringify(place));
+    }
+    window.location.href = `edit_places.html?id=${encodeURIComponent(placeId)}`;
+  });
+});
+      
     container.querySelectorAll(".delete-btn").forEach(button => {
       button.addEventListener("click", () => {
         deletePlace(button.dataset.id);

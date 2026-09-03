@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User · StudySpot Admin</title>
+    <link rel="stylesheet" href="css/edit_users.css">
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-left">
+        <span class="logo"><h2>StudySpot</h2></span>
+      </div>
+    </nav>
+
+    <main>
+      <div class="login-card">
+        <h1>Edit user</h1>
+        <p class="subtitle">Update this account's details, then save your changes.</p>
+
+        <form id="edit-user-form" novalidate>
+          <div class="field">
+            <label for="fname">First name</label>
+            <input type="text" id="fname" name="fname" autocomplete="given-name" required>
+          </div>
+
+          <div class="field">
+            <label for="lname">Last name</label>
+            <input type="text" id="lname" name="lname" autocomplete="family-name" required>
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email" required>
+          </div>
+
+          <div class="field">
+            <label for="user_role">User role</label>
+            <select id="user_role" name="user_role" required>
+              <option value="user">user</option>
+              <option value="admin">admin</option>
+            </select>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="submit" id="submit-btn">Save changes</button>
+            <button type="button" class="cancel" id="cancel-btn">Cancel</button>
+          </div>
+
+          <div id="form-message" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </main>
+
+    <script src="js/auth.js"></script>
+    <script>
+      const API_BASE = "http://localhost:5001";
+      const DASHBOARD_PAGE = "admin_users.html";
+
+      const params = new URLSearchParams(window.location.search);
+      const userId = params.get("id");
+
+      const form = document.getElementById("edit-user-form");
+      const submitBtn = document.getElementById("submit-btn");
+      const cancelBtn = document.getElementById("cancel-btn");
+      const messageEl = document.getElementById("form-message");
+
+      const fnameInput = document.getElementById("fname");
+      const lnameInput = document.getElementById("lname");
+      const emailInput = document.getElementById("email");
+      const roleInput = document.getElementById("user_role");
+
+      function setMessage(text, isError = false) {
+        messageEl.textContent = text;
+        messageEl.classList.toggle("error", isError);
+      }
+
+      cancelBtn.addEventListener("click", () => {
+        window.location.href = DASHBOARD_PAGE;
+      });
+
+      (async () => {
+        // Page-level gate: redirects non-admins away before anything else runs.
+        const pageUser = await requireAdminPage(DASHBOARD_PAGE);
+        if (!pageUser) return;
+
+        if (!userId) {
+          setMessage("No user was specified to edit.", true);
+          form.querySelectorAll("input, select, button[type=submit]").forEach(el => el.disabled = true);
+          return;
+        }
+
+        try {
+          const res = await fetch(`${API_BASE}/users/${encodeURIComponent(userId)}`);
+          if (res.status === 404) throw new Error("not-found");
+          if (!res.ok) throw new Error("fetch-failed");
+          const user = await res.json();
+
+          fnameInput.value = user.fname || "";
+          lnameInput.value = user.lname || "";
+          emailInput.value = user.email || "";
+          roleInput.value = user.user_role || "user";
+        } catch (err) {
+          console.error("Load user error:", err);
+          if (err.message === "not-found") {
+            setMessage("User not found.", true);
+          } else {
+            setMessage("Could not load this user. Try again later.", true);
+          }
+          form.querySelectorAll("input, select, button[type=submit]").forEach(el => el.disabled = true);
+        }
+      })();
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        setMessage("");
+
+        const currentUser = await requireAdminAction();
+        if (!currentUser) return;
+
+        const payload = {
+          fname: fnameInput.value.trim(),
+          lname: lnameInput.value.trim(),
+          email: emailInput.value.trim(),
+          user_role: roleInput.value,
+          user_id: currentUser.user_id
+        };
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Saving…";
+
+        try {
+          const res = await fetch(`${API_BASE}/admin/users/${encodeURIComponent(userId)}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "X-User-Role": currentUser.user_role
+            },
+            body: JSON.stringify(payload)
+          });
+
+          if (!res.ok) throw new Error("Failed to update user");
+
+          window.location.href = DASHBOARD_PAGE;
+        } catch (err) {
+          console.error("Update user error:", err);
+          setMessage("Could not save changes. Try again later.", true);
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Save changes";
+        }
+      });
+    </script>
+  </body>
+</html>

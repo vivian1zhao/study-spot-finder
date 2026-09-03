@@ -3,7 +3,7 @@ venv/
 .env
 .vscode
 
-Frontend/node_modules/
+Front-end/node_modules/
 
 __pycache__/
 *.pyc

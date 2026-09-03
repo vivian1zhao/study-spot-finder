@@ -47,7 +47,7 @@ services:
 
   frontend:
     build:
-      context: ./Frontend
+      context: Front-end
 
     restart: unless-stopped
 

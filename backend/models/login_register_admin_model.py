@@ -22,7 +22,7 @@ def get_user_by_id(user_id):
     db = get_db()
     cursor = db.cursor(dictionary=True)
     query = """
-    SELECT user_id, fname, lname, username, email, city, state
+    SELECT user_id, fname, lname, username, email, city, state, user_role
     FROM Users
     WHERE user_id = %s
     """
@@ -108,7 +108,7 @@ def delete_user(target_id):
     # Delete child rows first (no ON DELETE CASCADE in the schema)
     cursor.execute("DELETE FROM Reviews WHERE user_id = %s", (target_id,))
     cursor.execute("DELETE FROM Favorites WHERE user_id = %s", (target_id,))
-    cursor.execute("DELETE FROM Audit_log WHERE user_id = %s", (target_id,))
+    cursor.execute("DELETE FROM audit_log WHERE user_id = %s", (target_id,))
     cursor.execute("DELETE FROM Users WHERE user_id = %s", (target_id,))
     connection.commit()
     rows_deleted = cursor.rowcount

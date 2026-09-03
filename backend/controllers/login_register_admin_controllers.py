@@ -155,16 +155,33 @@ def edit_place(place_id):
 @users_bp.delete("/admin/places/<int:place_id>")
 @admin_required
 def delete_place(place_id):
+    # rows_deleted = model.delete_place(place_id)
+    # if rows_deleted == 0:
+    #     return jsonify({"message": "Place not found"}), 404
+    #
+    # log_action(
+    #     request.json.get("user_id"),
+    #     "DELETE",
+    #     "Places",
+    #     f"Place {place_id} deleted"
+    # )
+    # return jsonify({"message": "Place deleted"}), 200
+
+
+    data = request.get_json(silent=True) or {}
+
     rows_deleted = model.delete_place(place_id)
+
     if rows_deleted == 0:
         return jsonify({"message": "Place not found"}), 404
 
     log_action(
-        request.json.get("user_id"),
+        data.get("user_id"),
         "DELETE",
         "Places",
         f"Place {place_id} deleted"
     )
+
     return jsonify({"message": "Place deleted"}), 200
 
 
@@ -204,14 +221,30 @@ def edit_user(target_id):
 @users_bp.delete("/admin/users/<int:target_id>")
 @admin_required
 def delete_user(target_id):
+    # rows_deleted = model.delete_user(target_id)
+    # if rows_deleted == 0:
+    #     return jsonify({"message": "User not found"}), 404
+    #
+    # log_action(
+    #     request.json.get("user_id"),
+    #     "DELETE",
+    #     "Users",
+    #     f"User {target_id} deleted"
+    # )
+    # return jsonify({"message": "User deleted"}), 200
+
+    data = request.get_json(silent=True) or {}
+
     rows_deleted = model.delete_user(target_id)
+
     if rows_deleted == 0:
         return jsonify({"message": "User not found"}), 404
 
     log_action(
-        request.json.get("user_id"),
+        data.get("user_id"),
         "DELETE",
         "Users",
         f"User {target_id} deleted"
     )
+
     return jsonify({"message": "User deleted"}), 200

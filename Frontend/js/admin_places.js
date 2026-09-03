@@ -28,7 +28,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         place_type: document.getElementById("place_type").value,
         address: document.getElementById("address").value,
         city: document.getElementById("city").value,
-        state: document.getElementById("state").value
+        state: document.getElementById("state").value,
+        user_id: currentUser.user_id
       };
 
       fetch(`${API_BASE}/admin/places`, {
@@ -162,9 +163,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (!confirm("Delete this place? This cannot be undone.")) return;
 
+    // fetch(`${API_BASE}/admin/places/${placeId}`, {
+    //   method: "DELETE",
+    //   headers: { "X-User-Role": currentUser.user_role }
+    // })
+
     fetch(`${API_BASE}/admin/places/${placeId}`, {
       method: "DELETE",
-      headers: { "X-User-Role": currentUser.user_role }
+      headers: {
+        "Content-Type": "application/json",
+        "X-User-Role": currentUser.user_role
+      },
+      body: JSON.stringify({
+        user_id: currentUser.user_id
+      })
     })
       .then(res => {
         if (!res.ok) throw new Error("Failed to delete place");

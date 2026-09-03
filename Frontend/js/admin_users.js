@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     container.appendChild(card);
 
     card.querySelector(".edit-btn").addEventListener("click", () => {
-       window.location.href = `edit_users.html?id=${encodeURIComponent(user_id)}`;
+       window.location.href = `edit_users.html?id=${encodeURIComponent(user.user_id)}`;
 });
     
 
@@ -169,12 +169,29 @@ document.addEventListener("DOMContentLoaded", async () => {
     const currentUser = await requireAdminAction();
     if (!currentUser) return;
 
+    if (String(currentUser.user_id) === String(userId)) {
+      alert("You cannot delete your own admin account.");
+      return;
+    }
+
     if (!confirm("Delete this user? This cannot be undone.")) return;
+
+    // fetch(`${API_BASE}/admin/users/${userId}`, {
+    //   method: "DELETE",
+    //   headers: { "X-User-Role": currentUser.user_role }
+    // })
 
     fetch(`${API_BASE}/admin/users/${userId}`, {
       method: "DELETE",
-      headers: { "X-User-Role": currentUser.user_role }
+      headers: {
+        "Content-Type": "application/json",
+        "X-User-Role": currentUser.user_role
+      },
+      body: JSON.stringify({
+        user_id: currentUser.user_id
+      })
     })
+
       .then(res => {
         if (!res.ok) throw new Error("Failed to delete user");
         return res.json();

@@ -94,13 +94,13 @@ CREATE TABLE audit_log (
 DELIMITER //
  
 CREATE TRIGGER after_review_insert
-AFTER INSERT ON reviews
+AFTER INSERT ON Reviews
 FOR EACH ROW
 BEGIN
-    UPDATE places
+    UPDATE Places
     SET
-        total_reviews = (SELECT COUNT(*) FROM reviews WHERE place_id = NEW.place_id),
-        avg_rating = (SELECT ROUND(AVG(overall_rating), 2) FROM reviews WHERE place_id = NEW.place_id)
+        total_reviews = (SELECT COUNT(*) FROM Reviews WHERE place_id = NEW.place_id),
+        avg_rating = (SELECT ROUND(AVG(overall_rating), 2) FROM Reviews WHERE place_id = NEW.place_id)
     WHERE place_id = NEW.place_id;
 END//
  

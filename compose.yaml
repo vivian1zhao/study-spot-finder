@@ -13,7 +13,8 @@ services:
 
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./studyspot_schema.sql:/docker-entrypoint-initdb.d/studyspot_schema.sql:ro
+      - ./studyspot_schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ./studyspot_data.sql:/docker-entrypoint-initdb.d/02_data.sql:ro
 
     healthcheck:
       test:

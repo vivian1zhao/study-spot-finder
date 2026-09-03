@@ -50,7 +50,7 @@ async function loadPlaceDetails(placeId) {
     displayOpeningHours(place.opening_hours);
     displayReviews(place.reviews);
     document.getElementById("write-review-link").href =
-      `review.html?place_id=${place.place_id}`;
+      `review.html?place_id=${place.place_id}`; // a
 
     document.getElementById("place-header").hidden = false;
     document.getElementById("place-details").hidden = false;

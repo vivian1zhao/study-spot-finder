@@ -1,0 +1,12 @@
+global:
+  # asks Flask for new metrics every 15 secs
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: "studyspot-backend"
+
+    metrics_path: /metrics
+
+    static_configs:
+      - targets:
+          - "backend:5001"

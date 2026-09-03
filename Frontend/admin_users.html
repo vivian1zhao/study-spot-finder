@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>StudySpot | Admin - Users</title>
+  <link rel="stylesheet" href="css/admin_users.css">
+  <link rel="stylesheet" href="css/navbar.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="places.html" class="logo">StudySpot</a>
+    </div>
+
+    <div class="nav-right">
+      <a href="Places.html">Places</a>
+      <a href="Search.html">Search</a>
+      <a href="Favorites.html">Favorites</a>
+      <a href="Review.html">Review</a>
+      <a href="admin_places.html">Admin: Places</a>
+      <a href="admin_users.html">Admin: Users</a>
+      <button id="dark-toggle">🌙</button>
+      <div id="user-initials" class="user-initials" hidden></div>
+    </div>
+  </nav>
+
+  <header>
+    <h1>Manage Users</h1>
+    <p class="subtitle">Look up a user by ID to edit or remove their account.</p>
+    <p id="welcome-msg" class="welcome-msg"></p>
+  </header>
+
+  <main>
+    <section class="admin-form-section">
+      <h2>Find a User</h2>
+      <form id="lookup-form" class="admin-form">
+        <input type="text" id="lookup-query" name="lookup-query" placeholder="Search by name or user ID" required>
+        <button type="submit">Look Up</button>
+      </form>
+    </section>
+
+    <div id="loading" class="loading-spinner"></div>
+
+    <section>
+      <div id="user-container" class="places-grid"></div>
+    </section>
+  </main>
+
+  <script src="js/auth.js"></script>
+  <script src="js/admin_users.js"></script>
+  <script src="js/navbar.js"></script>
+</body>
+</html>

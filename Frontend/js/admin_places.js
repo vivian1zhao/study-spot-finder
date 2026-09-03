@@ -1,5 +1,6 @@
 // admin_places.js
-const API_BASE = "http://localhost:5001";
+const API_BASE = '/api';
+
 
 document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("places-container");

@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const url =
-      `http://localhost:5001/places/search?${searchParameters.toString()}`;
+      `/api/places/search?${searchParameters.toString()}`;
 
     try {
       const response = await fetch(url);

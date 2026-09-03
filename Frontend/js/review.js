@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const API_BASE = "http://localhost:5001";
+  const API_BASE = "/api";
 
   const userId = localStorage.getItem("user_id");
   const username = localStorage.getItem("username");

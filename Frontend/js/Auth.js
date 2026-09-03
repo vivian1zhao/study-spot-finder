@@ -1,7 +1,7 @@
 // auth.js
 
 
-const AUTH_API_BASE = "http://localhost:5001";
+const AUTH_API_BASE = "/api";
 
 function getStoredUser() {
   const raw = localStorage.getItem("currentUser");

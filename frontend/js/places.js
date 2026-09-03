@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loading.style.display = "block";
 
-  fetch("http://localhost:5001/places")
+  fetch("/api/places")
     .then(res => {
       if (!res.ok) throw new Error("Backend returned an error");
       return res.json();

@@ -11,4 +11,4 @@ app.register_blueprint(favs_placedetails_bp, url_prefix="/")
 app.register_blueprint(users_bp, url_prefix="/")
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    app.run(host="0.0.0.0", port=5001)

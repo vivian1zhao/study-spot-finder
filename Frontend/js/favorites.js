@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:5001";
+const API_BASE = "/api";
 
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("dark-toggle").addEventListener("click", () => {

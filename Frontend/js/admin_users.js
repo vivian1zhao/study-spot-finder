@@ -1,7 +1,7 @@
 // admin_users.js
 
 
-const API_BASE = "http://localhost:5001";
+const API_BASE = "/api";
 const VALID_ROLES = ["admin", "user"];
 
 document.addEventListener("DOMContentLoaded", async () => {

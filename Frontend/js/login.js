@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const data = await res.json();
+            console.log('login response:', data);
 
             if (res.ok) {
                 localStorage.setItem('user_id', data.user_id);
@@ -45,7 +46,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 localStorage.setItem('avatarColor', avatarColor);
 
-                window.location.href = 'places.html';
+                // Store the full user object (incl. user_role) — auth.js's
+                // requireAdminPage()/requireAdminAction() read "currentUser"
+                // from localStorage to authorize admin page access and
+                // write actions. Without this line, currentUser is never
+                // set, so every admin check silently fails as "not logged in".
+                localStorage.setItem('currentUser', JSON.stringify(data));
+
+                if (data.user_role === 'admin') {
+                    window.location.href = 'admin_places.html';
+                } else {
+                    window.location.href = 'places.html';
+                }
+                
             } else {
                 messageEl.textContent = data.message || 'Login failed. Please try again.';
             }

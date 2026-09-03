@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>StudySpot | Admin - Places</title>
+  <link rel="stylesheet" href="css/admin_places.css">
+  <link rel="stylesheet" href="css/navbar.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="places.html" class="logo">StudySpot</a>
+    </div>
+
+    <div class="nav-right">
+      <a href="Places.html">Places</a>
+      <a href="Search.html">Search</a>
+      <a href="Favorites.html">Favorites</a>
+      <a href="Review.html">Review</a>
+      <a href="admin_places.html">Admin: Places</a>
+      <a href="admin_users.html">Admin: Users</a>
+      <button id="dark-toggle">🌙</button>
+      <div id="user-initials" class="user-initials" hidden></div>
+    </div>
+  </nav>
+
+  <header>
+    <h1>Manage Places</h1>
+    <p class="subtitle">Add, edit, or remove study spots.</p>
+    <p id="welcome-msg" class="welcome-msg"></p>
+  </header>
+
+  <main>
+    <section class="admin-form-section">
+      <h2>Add a New Place</h2>
+      <form id="add-place-form" class="admin-form">
+        <input type="text" id="place_name" name="place_name" placeholder="Place name" required>
+        <input type="text" id="place_type" name="place_type" placeholder="Place type (e.g. cafe, library)" required>
+        <input type="text" id="address" name="address" placeholder="Address" required>
+        <input type="text" id="city" name="city" placeholder="City" required>
+        <input type="text" id="state" name="state" placeholder="State" required>
+        <button type="submit">Add Place</button>
+      </form>
+    </section>
+
+    <div id="loading" class="loading-spinner"></div>
+
+    <section>
+      <h2>Existing Places</h2>
+      <div id="places-container" class="places-grid"></div>
+    </section>
+  </main>
+
+  <script src="js/auth.js"></script>
+  <script src="js/admin_places.js"></script>
+  <script src="js/navbar.js"></script>
+</body>
+</html>

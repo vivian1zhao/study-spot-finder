@@ -1,6 +1,6 @@
 body {
   font-family: "Inter", sans-serif;
-  background: linear-gradient(135deg, #fafafa, #eaeaea);
+  background: linear-gradient(135deg, #f7f7f7, #f1f1f1);
   background-size: 200% 200%;
   animation: bgShiftLight 18s ease infinite alternate;
   margin: 0;

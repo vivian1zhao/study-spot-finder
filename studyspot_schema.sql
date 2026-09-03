@@ -1,4 +1,3 @@
-
 DROP DATABASE IF EXISTS StudySpots;
 CREATE DATABASE StudySpots;
 
@@ -8,6 +7,7 @@ CREATE TABLE Users(
 	user_id INT AUTO_INCREMENT PRIMARY KEY,
     fname VARCHAR(50) NOT NULL,
     lname VARCHAR(50) NOT NULL,
+    username VARCHAR(50) NOT NULL UNIQUE,
     pass_word VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     phone VARCHAR(15) UNIQUE,
@@ -24,8 +24,8 @@ CREATE TABLE Places(
     address VARCHAR(100) NOT NULL,
     city VARCHAR(100) NOT NULL,
     state VARCHAR(50) NOT NULL,
-    total_reviews INT,
-    avg_rating DECIMAL(3,2)
+    total_reviews INT DEFAULT NULL,
+    avg_rating DECIMAL(3,2) DEFAULT NULL
 );
 
 CREATE TABLE Reviews(
@@ -86,7 +86,22 @@ CREATE TABLE audit_log (
     table_name VARCHAR(50) NOT NULL,    -- table that's changed
     details TEXT,  
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
- 
+    username VARCHAR(50),
     FOREIGN KEY (user_id) REFERENCES Users(user_id)  -- links to the user 
 );
 
+
+DELIMITER //
+ 
+CREATE TRIGGER after_review_insert
+AFTER INSERT ON reviews
+FOR EACH ROW
+BEGIN
+    UPDATE places
+    SET
+        total_reviews = (SELECT COUNT(*) FROM reviews WHERE place_id = NEW.place_id),
+        avg_rating = (SELECT ROUND(AVG(overall_rating), 2) FROM reviews WHERE place_id = NEW.place_id)
+    WHERE place_id = NEW.place_id;
+END//
+ 
+DELIMITER ;

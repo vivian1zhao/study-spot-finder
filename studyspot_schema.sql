@@ -86,7 +86,7 @@ CREATE TABLE audit_log (
     table_name VARCHAR(50) NOT NULL,    -- table that's changed
     details TEXT,  
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
- 
+    username VARCHAR(50),
     FOREIGN KEY (user_id) REFERENCES Users(user_id)  -- links to the user 
 );
 

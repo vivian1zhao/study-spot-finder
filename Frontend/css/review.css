@@ -61,79 +61,6 @@ textarea {
   background: rgba(87, 178, 198, 0.18);
 }
 
-/* NAVIGATION */
-
-.navbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px max(24px, calc((100vw - 1240px) / 2));
-  background: rgba(255, 255, 255, 0.82);
-  border-bottom: 1px solid rgba(37, 84, 58, 0.1);
-  backdrop-filter: blur(18px);
-}
-
-/* Original plain-text StudySpot logo */
-
-.logo {
-  display: inline-block;
-  color: #333;
-  font-size: 1.4rem;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 22px;
-}
-
-.nav-right a {
-  position: relative;
-  padding: 8px 0;
-  color: #425048;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.nav-right a::after {
-  position: absolute;
-  right: 0;
-  bottom: 2px;
-  left: 0;
-  height: 2px;
-  content: "";
-  background: var(--green-600);
-  border-radius: 99px;
-  transform: scaleX(0);
-  transition: transform 180ms ease;
-}
-
-.nav-right a:hover::after,
-.nav-right .active-link::after {
-  transform: scaleX(1);
-}
-
-.icon-button {
-  width: 42px;
-  height: 42px;
-  border: 1px solid var(--border);
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.7);
-  cursor: pointer;
-  transition:
-    transform 180ms ease,
-    box-shadow 180ms ease;
-}
-
-.icon-button:hover {
-  transform: translateY(-2px) rotate(8deg);
-  box-shadow: 0 9px 18px rgba(34, 82, 55, 0.14);
-}
 
 /* PAGE */
 
@@ -815,15 +742,6 @@ body.dark {
     radial-gradient(circle at 10% 10%, #1c4930 0, transparent 35%),
     radial-gradient(circle at 90% 85%, #183b43 0, transparent 38%),
     #101713;
-}
-
-body.dark .navbar {
-  background: rgba(20, 29, 24, 0.88);
-}
-
-body.dark .nav-right a,
-body.dark .logo {
-  color: var(--ink);
 }
 
 body.dark .category-card,

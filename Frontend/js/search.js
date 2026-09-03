@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const darkToggle = document.getElementById("dark-toggle");
   const floatingIcons = document.querySelector(".floating-icons");
 
-
   const icons = ["📚", "✏️", "☕", "💡", "🎧"];
 
   if (floatingIcons) {
@@ -28,11 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-
   darkToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark");
   });
-
 
   searchButton.addEventListener("click", async () => {
     const city = citySelect.value;
@@ -40,7 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     resultsContainer.innerHTML = "<p>Searching...</p>";
     searchButton.disabled = true;
-
 
     const searchParameters = new URLSearchParams();
 
@@ -59,7 +55,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const response = await fetch(url);
 
       if (!response.ok) {
-        throw new Error(`Backend returned status ${response.status}`);
+        throw new Error(
+          `Backend returned status ${response.status}`
+        );
       }
 
       const places = await response.json();
@@ -71,8 +69,19 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if (places.length === 0) {
-        resultsContainer.innerHTML =
-          "<p>No matching study spots were found.</p>";
+        resultsContainer.innerHTML = `
+          <div class="no-results">
+            <div class="no-results-icon">🔎</div>
+
+            <h2>No study spots found</h2>
+
+            <p>
+              We couldn't find a match for those filters.
+              Try choosing a different city or place type.
+            </p>
+          </div>
+        `;
+
         return;
       }
 
@@ -86,10 +95,21 @@ document.addEventListener("DOMContentLoaded", () => {
             : Number(place.avg_rating).toFixed(1);
 
         card.innerHTML = `
-          <div class="result-name">${place.place_name}</div>
-          <div>📍 ${place.address}, ${place.city}, ${place.state}</div>
-          <div>🪑 Type: ${place.place_type}</div>
-          <div>⭐ ${rating}${rating === "N/A" ? "" : " / 5"}</div>
+          <div class="result-name">
+            ${place.place_name}
+          </div>
+
+          <div>
+            📍 ${place.address}, ${place.city}, ${place.state}
+          </div>
+
+          <div>
+            🪑 Type: ${place.place_type}
+          </div>
+
+          <div>
+            ⭐ ${rating}${rating === "N/A" ? "" : " / 5"}
+          </div>
         `;
 
         resultsContainer.appendChild(card);
@@ -98,10 +118,10 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Search error:", error);
 
       resultsContainer.innerHTML = `
-  <p class="no-results">
-    No matching study spots were found.
-  </p>
-`;
+        <p class="no-results">
+          No matching study spots were found.
+        </p>
+      `;
     } finally {
       searchButton.disabled = false;
     }

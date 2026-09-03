@@ -1,6 +1,7 @@
 from functools import wraps
 
 from flask import Blueprint, jsonify, request
+from audit_log_model import log_action
 
 import models.login_register_admin_model as model
 
@@ -32,13 +33,27 @@ def login():
     user = model.get_user_by_credentials(username, password)
 
     if user:
+        log_action(
+            user["user_id"],
+            "LOGIN_SUCCESS",
+            "Users",
+            "User logged in successfully"
+        )
         return jsonify({
             "message": "Login successful",
             "user_id": user["user_id"],
             "fname": user["fname"],
             "lname": user["lname"]
         }), 200
-
+        
+       
+    log_action(
+        None,
+        "LOGIN_FAILED",
+        "Users",
+        f"Failed login attempt for username {username}",
+        username=username
+    )
     return jsonify({"message": "Invalid username and/or password"}), 401
 
 
@@ -72,6 +87,13 @@ def newuser():
         "state": data.get("state"),
         "username": data.get("username")
     }
+    
+    log_action(
+        new_id,
+        "INSERT",
+        "Users",
+        "New user account created"
+    )
 
     return jsonify({"record": new_record, "message": "Record added"}), 201
 
@@ -101,6 +123,12 @@ def add_place():
         data.get("city"),
         data.get("state")
     )
+    log_action(
+        data.get("user_id"),
+        "INSERT",
+        "Places",
+        f"Place {place_id} added"
+    )
 
     return jsonify({"message": "Place added", "place_id": place_id}), 201
 
@@ -118,6 +146,13 @@ def edit_place(place_id):
         data.get("city"),
         data.get("state")
     )
+    
+    log_action(
+        data.get("user_id"),
+        "UPDATE",
+        "Places",
+        f"Place {place_id} updated"
+    )
 
     if rows_updated == 0:
         return jsonify({"message": "Place not found"}), 404
@@ -132,6 +167,13 @@ def delete_place(place_id):
 
     if rows_deleted == 0:
         return jsonify({"message": "Place not found"}), 404
+    
+    log_action(
+        request.json.get("user_id"),
+        "DELETE",
+        "Places",
+        f"Place {place_id} deleted"
+    )
 
     return jsonify({"message": "Place deleted"}), 200
 
@@ -150,6 +192,12 @@ def edit_user(target_id):
         data.get("email"),
         data.get("user_role")
     )
+    log_action(
+        data.get("user_id"),
+        "UPDATE",
+        "Users",
+        f"User {target_id} updated"
+    )
 
     if rows_updated == 0:
         return jsonify({"message": "User not found"}), 404
@@ -164,5 +212,12 @@ def delete_user(target_id):
 
     if rows_deleted == 0:
         return jsonify({"message": "User not found"}), 404
+    
+    log_action(
+        request.json.get("user_id"),
+        "DELETE",
+        "Users",
+        f"User {target_id} deleted"
+    )
 
     return jsonify({"message": "User deleted"}), 200

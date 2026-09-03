@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify
+from audit_log_model import log_action
 
 from models.favs_placedetails_model import (
     get_place_amenities,
@@ -42,6 +43,13 @@ def add_favorite_route(user_id, place_id):
         return jsonify({
             "message": "Place is already in favorites"
         }), 409
+        
+    log_action(
+        user_id,
+        "INSERT",
+        "Favorites",
+        f"Place {place_id} added to favorites"
+    )
 
     return jsonify({
         "message": "Favorite added",
@@ -57,6 +65,7 @@ def remove_favorite_route(user_id,place_id):
         return jsonify({
             "message": "Favorite not found"
         }), 404
+    
 
     return jsonify({
         "message": "Favorite removed",

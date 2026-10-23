@@ -1,12 +1,24 @@
+# secrets
+.env
+
+# python virtual environment
 venv/
 .venv/
-.env
-.vscode
 
-frontend/node_modules/
-
+# python generated files
 __pycache__/
 *.pyc
 .pytest_cache/
-*.log
+
+# IDE files
+.idea/
+.vscode/
+
+# node dependencies
+frontend/node_modules/
+
+# database/session files
 *.session.sql
+
+# logs
+*.log
